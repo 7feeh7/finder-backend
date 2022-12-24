@@ -1,9 +1,12 @@
+const repository = require('../repositories/suggestion-repository')
+
 module.exports = {
     async create(req, res) {
         try {
             const { q } = req.query;
-            console.log(q)
-            return res.status(200).json({ q })
+
+            await repository.create({ suggestion: q })
+            return res.status(200).send()
         } catch (err) {
             console.error(err)
         }
