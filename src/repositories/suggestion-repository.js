@@ -5,9 +5,12 @@ module.exports = {
         const suggestion = new Suggestion(data)
         return await suggestion.save()
     },
-    async getAllSuggestions(q) {
+    async findOne(data) {
+        return Suggestion.find({ suggestion: data })
+    },
+    async findAll(data) {
         const config = {}
-        if (q) config = { suggestion: { $regex: '.*' + q + '.*' } }
+        if (data) config = { suggestion: { $regex: '.*' + data + '.*' } }
         return Suggestion.find(config)
     }
 }

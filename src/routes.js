@@ -4,7 +4,10 @@ const Suggestion= require('./controllers/SuggestionController')
 
 const routes = Router()
 
-routes.post('/search', async (req, res) => {
+const validation = require('./middlewares/validationSchema')
+const suggestionSchema = require('./validations/suggestion')
+
+routes.post('/search', validation(suggestionSchema), async (req, res) => {
     const suggestion = new Suggestion(req, res)
     const response = await suggestion.create()
     return response
