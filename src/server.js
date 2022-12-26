@@ -6,19 +6,18 @@ const routes = require('./routes')
 
 const app = express()
 
+require('dotenv').config()
+
 mongoose.set('strictQuery', true)
 
-mongoose
-    .connect('mongodb+srv://admin:admin@cluster0.zb36i.mongodb.net/starlight?retryWrites=true&w=majority')
+mongoose.connect(process.env.MONGODB)
 
 app.use(express.json())
 
-app.get('/', (req, res) => {
-    return res.status(200).send({
-        title: 'Finder',
-        version: '1.0.0'
-    })
-})
+app.get('/', (req, res) => res.status(200).send({
+    title: 'Finder',
+    version: '1.0.0'
+}))
 
 app.use(routes)
 

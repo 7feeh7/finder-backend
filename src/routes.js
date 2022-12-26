@@ -1,10 +1,19 @@
 const { Router } = require('express')
-const yup = require('yup')
 
-const SuggestionController = require('./controllers/SuggestionController')
+const Suggestion= require('./controllers/SuggestionController')
 
 const routes = Router()
 
-routes.post('/search', SuggestionController.create)
+routes.post('/search', async (req, res) => {
+    const suggestion = new Suggestion(req, res)
+    const response = await suggestion.create()
+    return response
+})
+
+routes.get('/search', async (req, res) => {
+    const suggestion = new Suggestion(req, res)
+    const response = await suggestion.get()
+    return response
+})
 
 module.exports = routes
